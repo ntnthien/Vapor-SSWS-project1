@@ -13,12 +13,14 @@ public func configure(
     let router = EngineRouter.default()
     try routes(router)
     services.register(router, as: Router.self)
-    
+    // Configure the rest of your application here
+
+    // Leaf Provider
     try services.register(LeafProvider())
     config.prefer(LeafRenderer.self, for: TemplateRenderer.self)
     
+    // File Middleware
     var middleware = MiddlewareConfig.default()
     middleware.use(FileMiddleware.self)
     services.register(middleware)
-    // Configure the rest of your application here
 }
