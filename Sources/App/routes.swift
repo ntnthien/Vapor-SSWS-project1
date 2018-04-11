@@ -1,5 +1,6 @@
 import Routing
 import Vapor
+import Leaf
 
 /// Register your application's routes here.
 ///
@@ -7,7 +8,7 @@ import Vapor
 public func routes(_ router: Router) throws {
     
     // MARK: Root route
-    router.get { _ in
+    router.get { req in
         return "[Root] Welcome to Vapor - Do Nguyen"
     }
     
@@ -24,7 +25,8 @@ public func routes(_ router: Router) throws {
     
     // MARK: /contact
 
-    router.get("contact") { req in
-        return "Get in touch with us"
+    router.get("contact") { req -> Future<View> in
+        let context: [String: String] = [String: String]()
+        return try req.view().render("contact.leaf", context)
     }
 }
